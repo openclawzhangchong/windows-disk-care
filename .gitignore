@@ -1,0 +1,12 @@
+# 本机扫描结果含真实用户名/计算机名/软件清单，默认不入库。
+# 要留档就按 profiles/TEMPLATE.json 脱敏后另存。
+out/
+*.tmp
+
+# 脚本运行产物
+*_robocopy.log
+*.log
+*.cubackup/
+.DS_Store
+Thumbs.db
+Desktop.ini

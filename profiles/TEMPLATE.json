@@ -1,0 +1,39 @@
+{
+  "_comment": "One file per machine, named <COMPUTERNAME>.json, stored in profiles/. Copy this template. Purpose: the next run should read this BEFORE scanning, so it knows what was already decided and already relocated.",
+  "computer": "REPLACE-WITH-COMPUTERNAME",
+  "recordedOn": "yyyy-mm-dd",
+  "windows": "e.g. Windows 11 23H2",
+
+  "disks": [
+    { "drive": "C:", "diskNumber": 0, "model": "e.g. NVMe 512GB", "media": "SSD", "freeGB": 0 },
+    { "drive": "D:", "diskNumber": 0, "model": "same physical disk as C", "media": "SSD", "freeGB": 0,
+      "note": "same diskNumber as C: means relocating here frees nothing" }
+  ],
+  "relocationTarget": { "drive": "E:", "diskNumber": 1, "why": "separate physical disk" },
+
+  "rollbackAvailable": { "shadowCopies": 0, "restorePoints": 0, "bitlocker": "Off",
+    "_note": "if all zero, deletion is irreversible - enforce copy/verify/rename-keep only" },
+
+  "junctionsCreated": [
+    { "path": "C:\\Users\\<user>\\AppData\\Local\\Pub\\Cache", "target": "E:\\relocated\\caches\\pub-cache",
+      "gb": 1.27, "date": "yyyy-mm-dd", "ownerApp": "flutter" }
+  ],
+
+  "doNotTouch": [
+    { "path": "C:\\Users\\<user>\\AppData\\Local\\npm-cache", "reason": "an MCP server executes from npm-cache\\_npx on this machine" },
+    { "path": "C:\\Windows\\Installer", "reason": "removing it breaks uninstall/repair" }
+  ],
+
+  "needsHumanDecision": [
+    { "path": "C:\\Users\\<user>\\AppData\\Roaming\\kingsoft", "category": "mixed",
+      "note": "config + cache + document index interleaved; drill down before any move" }
+  ],
+
+  "preexistingOddities": [
+    { "what": "Windows built-in per-user aliases point at a path that no longer exists",
+      "evidence": "Application Data -> D:\\Users\\<user>\\AppData\\Roaming (missing)",
+      "actionTaken": "none - documented as pre-existing, deleting aliases can break shell folders" }
+  ],
+
+  "results": { "beforeFreeGB": 0, "afterFreeGB": 0, "junkDeletedGB": 0, "logsArchivedGB": 0, "relocatedGB": 0 }
+}
